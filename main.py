@@ -10,7 +10,6 @@ cursor.execute('CREATE TABLE IF NOT EXISTS people_data('
                'mobile INTEGER,'
                'city TEXT)')
 con.commit()
-# con.close()
 
 fake = Faker('Ru')
 
