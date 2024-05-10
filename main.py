@@ -44,9 +44,10 @@ class University:
             cur.execute(sql)
             conn.commit()
 
-    def get_students(self, subject=None):
-        '''Функция вывода в консоль списка студентов и оценок'''
-
+    def get_students(self, subject=None) -> list:
+        '''Функция вывода в консоль списка студентов и оценок
+        :param subject: str
+        :param return: list'''
         with sqlite3.connect('students.db') as conn:
             cur = conn.cursor()
 
