@@ -67,7 +67,6 @@ univer = University('Urban')
 # univer.add_student('Сергей', 42)
 # univer.add_student('Ира', 54)
 # univer.add_student('Игорь', 23)
-#
 # univer.add_grade(1, 'Python', 4.9)
 # univer.add_grade(1, 'Java', 5)
 # univer.add_grade(2, 'Python', 5)
