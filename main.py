@@ -54,7 +54,6 @@ class University:
 
 
 univer = University('Urban')
-
 # univer.add_student('Елена', 24)
 # univer.add_student('Сергей', 42)
 # univer.add_student('Ира', 54)
