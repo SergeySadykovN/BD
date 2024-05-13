@@ -19,46 +19,38 @@ con.commit()
 class University:
     def __init__(self, name):
         self.name = name
+        self.conn = sqlite3.connect('students.db')
+        self.cur = self.conn.cursor()
 
     def add_student(self, name: str, age: int):
         '''Функция добавления Имени студента и возраста в БД'''
-        # self.students.append((name, age))
-        with sqlite3.connect('students.db') as conn:
-            cur = conn.cursor()
-            sql = (f"INSERT INTO students (name, age) "
-                   f"VALUES ('{name}', {age})")
-            cur.execute(sql)
-            id_student = cur.lastrowid
-            conn.commit()
-            return id_student
+        sql = (f"INSERT INTO students (name, age) "
+               f"VALUES ('{name}', {age})")
+        self.cur.execute(sql)
+        id_student = self.cur.lastrowid
+        self.conn.commit()
+        return id_student
 
     def add_grade(self, student_id: int, subject: str, grade: float):
         '''
         Функция добавления данных студент айди?,предмета и оценки в БД
         '''
-        # self.grades.append((student_id, subject, grade))
-        with sqlite3.connect('students.db') as conn:
-            cur = conn.cursor()
-            sql = (f"INSERT INTO grades (student_id, subject, grade) "
-                   f"VALUES ({student_id}, '{subject}', {grade})")
-            cur.execute(sql)
-            conn.commit()
+        sql = (f"INSERT INTO grades (student_id, subject, grade) "
+               f"VALUES ({student_id}, '{subject}', {grade})")
+        self.cur.execute(sql)
+        self.conn.commit()
 
     def get_students(self, subject=None):
         '''Функция вывода в консоль списка студентов и оценок'''
-
-        with sqlite3.connect('students.db') as conn:
-            cur = conn.cursor()
-
-            if subject:
-                cur.execute('SELECT s.name, s.age, g.subject, g.grade '
-                            'FROM students s, grades g '
-                            'WHERE s.id = g.student_id AND g.subject = ?', (subject,))
-            else:
-                cur.execute('SELECT s.name, s.age, g.subject, g.grade '
-                            'FROM students s, grades g '
-                            'WHERE s.id = g.student_id')
-            return cur.fetchall()
+        if subject:
+            self.cur.execute('SELECT s.name, s.age, g.subject, g.grade '
+                             'FROM students s, grades g '
+                             'WHERE s.id = g.student_id AND g.subject = ?', (subject,))
+        else:
+            self.cur.execute('SELECT s.name, s.age, g.subject, g.grade '
+                             'FROM students s, grades g '
+                             'WHERE s.id = g.student_id')
+        return self.cur.fetchall()
 
 
 univer = University('Urban')
