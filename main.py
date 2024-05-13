@@ -16,6 +16,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS grades(
 con.commit()
 
 
+
 class University:
     def __init__(self, name):
         self.name = name
